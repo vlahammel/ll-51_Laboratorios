@@ -1,0 +1,60 @@
+classDiagram
+    class Usuario {
+        -id : int
+        -nombre : string
+        -email : string
+        -rol : string
+        -departamento : string
+        +registrarDispositivo() : void
+        +actualizarEstado() : void
+        +consultarMisDispositivos() : List~Dispositivo~
+    }
+
+    class Dispositivo {
+        -id : int
+        -nombreEquipo : string
+        -numeroSerie : string
+        -macAddress : string
+        -ipActual : string
+        -fechaCompra : date
+        -estaActivo : boolean
+        +registrarConexion() : void
+        +actualizarIP() : void
+        +marcarComoInactivo() : void
+    }
+
+    class Registro {
+        -id : int
+        -fechaRegistro : datetime
+        -fechaUltimaConexion : datetime
+        -estado : string
+        -observaciones : string
+        +actualizarUltimaConexion() : void
+        +cambiarEstado() : void
+    }
+
+    class TipoDispositivo {
+        -id : int
+        -nombre : string
+        -categoria : string
+        +obtenerCategoria() : string
+    }
+
+    class Marca {
+        -id : int
+        -nombre : string
+        -paisOrigen : string
+    }
+
+    class SistemaOperativo {
+        -id : int
+        -nombre : string
+        -versionBase : string
+        -tipo : string
+    }
+
+    Usuario "1" --> "0..*" Registro : registra
+    Registro "1" --> "1" Dispositivo : pertenece a
+    Dispositivo "1" --> "1" TipoDispositivo : es de tipo
+    Dispositivo "1" --> "1" Marca : es de marca
+    Dispositivo "1" --> "1" SistemaOperativo : ejecuta
